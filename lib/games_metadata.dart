@@ -4,15 +4,19 @@ var gamesMetadataList = <GameMetadata>[
   GameMetadata(
       name: "A",
       desc: "dsfjoewjfoewf",
-      color: Colors.pinkAccent,
+      color: Colors.pink,
       icon: Icons.add_alarm),
-  GameMetadata(name: "B", desc: "fewfe", color: Colors.deepPurple, icon: Icons.face),
+  GameMetadata(
+      name: "B", desc: "fewfe", color: Colors.deepPurple, icon: Icons.face),
   GameMetadata(
       name: "C", desc: "sdccdsc", color: Colors.green, icon: Icons.gamepad),
   GameMetadata(
       name: "D", desc: "fdsaf", color: Colors.orange, icon: Icons.account_box),
   GameMetadata(
-      name: "E", desc: "cxv", color: Colors.lightBlueAccent, icon: Icons.cake_outlined),
+      name: "E",
+      desc: "cxv",
+      color: Colors.lightBlue,
+      icon: Icons.cake_outlined),
   GameMetadata(
       name: "F",
       desc: "fewfew",
@@ -23,7 +27,7 @@ var gamesMetadataList = <GameMetadata>[
 class GameMetadata {
   final String name;
   final String desc;
-  final Color color;
+  final MaterialColor color;
   final IconData icon;
 
   GameMetadata({
