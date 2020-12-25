@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_box/routes/game_details_route.dart';
+import 'package:flutter_game_box/routes/login_route.dart';
 import 'package:flutter_game_box/utils.dart';
 
 import '../games_metadata.dart';
@@ -17,7 +18,7 @@ class _CenterRouteState extends State<CenterRoute> {
   int _selectedIndex = 0;
 
   static const optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +29,18 @@ class _CenterRouteState extends State<CenterRoute> {
           childAspectRatio: 2 / 3,
           padding: EdgeInsets.all(8.0),
           children: gamesMetadataList
-              .map((gm) =>
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => GameDetailsRoute(gm)));
-                  },
-                  child: Container(
-                    child: Center(
-                        child: Column(
+              .map((gm) => Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GameDetailsRoute(gm)));
+                      },
+                      child: Container(
+                        child: Center(
+                            child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -51,50 +53,51 @@ class _CenterRouteState extends State<CenterRoute> {
                             ),
                             Text(
                               gm.name,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ],
                         )),
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                          )
-                        ],
-                        color: gm.color,
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [lighten(gm.color, 0.15), gm.color, darken(
-                                gm.color, 0.05)
-                            ]),
-                        borderRadius: BorderRadius.circular(26.0)),
-                  ),
-                ),
-              ))
+                        decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                              )
+                            ],
+                            color: gm.color,
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  lighten(gm.color, 0.15),
+                                  gm.color,
+                                  darken(gm.color, 0.05)
+                                ]),
+                            borderRadius: BorderRadius.circular(26.0)),
+                      ),
+                    ),
+                  ))
               .toList(),
         ),
       ),
-      Text(
-        'Index 1: Business',
-        style: optionStyle,
-      ),
-      Scaffold(
-        body: Center(child: const Text('Press the button below!')),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              // Add your onPressed code here!
-            },
-            child: Icon(Icons.add)
-        ),
-      ),
+      ExplorerWidget(),
+      SocialWidget(),
       SafeArea(
-        child: Text(
-          'Index 3: fff',
-          style: optionStyle,
+        child: Column(
+          children: [
+            Center(
+              child: TextButton(
+                child: Text("登录"),
+                onPressed: () => login(context),
+              ),
+            ),
+            Text(
+              'Index 3: fff',
+              style: optionStyle,
+            ),
+          ],
         ),
       ),
     ];
@@ -122,13 +125,48 @@ class _CenterRouteState extends State<CenterRoute> {
             currentIndex: _selectedIndex,
             showUnselectedLabels: true,
             unselectedItemColor: Colors.grey,
-            selectedItemColor: Theme
-                .of(context)
-                .primaryColor,
+            selectedItemColor: Theme.of(context).primaryColor,
             onTap: (int index) {
               setState(() {
                 _selectedIndex = index;
+                if (index == 3) login(context);
               });
             }));
+  }
+
+  void login(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginRoute()));
+  }
+}
+
+class SocialWidget extends StatelessWidget {
+  const SocialWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: const Text('Press the button below!')),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Add your onPressed code here!
+          },
+          child: Icon(Icons.add)),
+    );
+  }
+}
+
+class ExplorerWidget extends StatelessWidget {
+  const ExplorerWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Index 1: Business'
+    );
   }
 }
