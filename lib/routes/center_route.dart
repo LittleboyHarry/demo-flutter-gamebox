@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_game_box/routes/game_details_route.dart';
 import 'package:flutter_game_box/routes/login_route.dart';
+import 'package:flutter_game_box/routes/shopping_route.dart';
 import 'package:flutter_game_box/utils.dart';
 
 import '../games_metadata.dart';
@@ -16,9 +17,6 @@ class CenterRoute extends StatefulWidget {
 
 class _CenterRouteState extends State<CenterRoute> {
   int _selectedIndex = 0;
-
-  static const optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class _CenterRouteState extends State<CenterRoute> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => GameDetailsRoute(gm)));
+                                builder: (_) => GameDetailsRoute(gm)));
                       },
                       child: Container(
                         child: Center(
@@ -93,9 +91,26 @@ class _CenterRouteState extends State<CenterRoute> {
                 onPressed: () => login(context),
               ),
             ),
-            Text(
-              'Index 3: fff',
-              style: optionStyle,
+            GestureDetector(
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => ShoppingRoute())),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  height: 96,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.0),
+                      color: Colors.redAccent),
+                  child: Center(
+                      child: Text('我的商城',
+                          style: TextStyle(
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline5
+                                  .fontSize,
+                              color: Colors.white))),
+                ),
+              ),
             ),
           ],
         ),
@@ -107,7 +122,7 @@ class _CenterRouteState extends State<CenterRoute> {
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.videogame_asset),
-                label: '游戏大全',
+                label: '游戏库',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.explore_outlined),
@@ -135,8 +150,7 @@ class _CenterRouteState extends State<CenterRoute> {
   }
 
   void login(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginRoute()));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRoute()));
   }
 }
 
@@ -165,8 +179,6 @@ class ExplorerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Index 1: Business'
-    );
+    return Text('Index 1: Business');
   }
 }

@@ -38,12 +38,12 @@ class _LoginRouteState extends State<LoginRoute> {
         ),
         FlatButton(
           child: Text('确定'),
-          onPressed: () async {
-            if (usernameController.value.text == "" ||
+          onPressed: () {
+            /*if (usernameController.value.text == "" ||
                 passwordController.value.text == "")
               _showDialog(context, '请输入用户名或密码！');
-            else
-              Navigator.pop(context);
+            else*/
+            Navigator.pop(context);
           },
         ),
       ].expand(
