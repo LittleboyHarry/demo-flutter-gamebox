@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_game_box/routes/game_details_route.dart';
 import 'package:flutter_game_box/routes/login_route.dart';
 import 'package:flutter_game_box/routes/shopping_route.dart';
+import 'package:flutter_game_box/routes/welcome_route.dart';
 import 'package:flutter_game_box/utils.dart';
 
 import '../games_metadata.dart';
@@ -17,6 +19,26 @@ class CenterRoute extends StatefulWidget {
 
 class _CenterRouteState extends State<CenterRoute> {
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Navigator.push(
+          context,
+          PageRouteBuilder(
+              pageBuilder: (_, __, ___) => WelcomeRoute(),
+              transitionsBuilder: (context, animation, secondaryAnimation,
+                      child) =>
+                  SlideTransition(
+                    position:
+                        Tween(begin: const Offset(0.0, -1.0), end: Offset.zero)
+                            .animate(CurvedAnimation(
+                                parent: animation, curve: Curves.ease)),
+                    child: child,
+                  )));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,22 +63,21 @@ class _CenterRouteState extends State<CenterRoute> {
                   child: Center(
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            gm.icon,
-                            color: Colors.white,
-                            size: 64.0,
-                          ),
-                          Container(
-                            height: 20,
-                          ),
-                          Text(
-                            gm.name,
-                            style:
-                            TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ],
-                      )),
+                    children: [
+                      Icon(
+                        gm.icon,
+                        color: Colors.white,
+                        size: 64.0,
+                      ),
+                      Container(
+                        height: 20,
+                      ),
+                      Text(
+                        gm.name,
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ],
+                  )),
                   decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(

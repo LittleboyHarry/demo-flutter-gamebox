@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'center_route.dart';
-
 class WelcomeRoute extends StatelessWidget {
   const WelcomeRoute({
     Key key,
@@ -11,11 +9,7 @@ class WelcomeRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-          onTap: () => Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                  transitionDuration: Duration(seconds: 2),
-                  pageBuilder: (_, __, ___) => CenterRoute())),
+          onTap: () => Navigator.pop(context),
           child: Container(
               decoration: BoxDecoration(color: Colors.redAccent),
               child: Column(children: [
