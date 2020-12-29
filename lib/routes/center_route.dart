@@ -3,6 +3,7 @@ import 'package:flutter_game_box/routes/game_details_route.dart';
 import 'package:flutter_game_box/routes/login_route.dart';
 import 'package:flutter_game_box/routes/shopping_route.dart';
 import 'package:flutter_game_box/utils.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../games_metadata.dart';
 
@@ -20,66 +21,8 @@ class _CenterRouteState extends State<CenterRoute> {
 
   @override
   Widget build(BuildContext context) {
-    const gameListGap = 10.0;
-    const gameListItemRadius = 20.0;
-
     final _widgetOptions = <Widget>[
-      SafeArea(
-        child: GridView.count(
-          crossAxisCount: 2,
-          childAspectRatio: 1,
-          padding: EdgeInsets.all(gameListGap),
-          children: gamesMetadataList.map((gm) {
-            return Padding(
-              padding: const EdgeInsets.all(gameListGap),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => GameDetailsRoute(gm)));
-                },
-                child: Container(
-                  child: Center(
-                      child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        gm.icon,
-                        color: Colors.white,
-                        size: 64.0,
-                      ),
-                      Container(
-                        height: 20,
-                      ),
-                      Text(
-                        gm.name,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ],
-                  )),
-                  decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                        )
-                      ],
-                      color: gm.color,
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            lighten(gm.color, 0.15),
-                            gm.color,
-                            darken(gm.color, 0.05)
-                          ]),
-                      borderRadius: BorderRadius.circular(gameListItemRadius)),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ),
+      GameListWidget(),
       ExplorerWidget(),
       SocialWidget(),
       SafeArea(
@@ -117,7 +60,7 @@ class _CenterRouteState extends State<CenterRoute> {
       ),
     ];
     return Scaffold(
-        body: _widgetOptions.elementAt(_selectedIndex),
+        body: _widgetOptions[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -151,6 +94,107 @@ class _CenterRouteState extends State<CenterRoute> {
 
   void login(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (_) => LoginRoute()));
+  }
+}
+
+class GameListWidget extends StatelessWidget {
+  const GameListWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const gameListGap = 10.0;
+    const gameListItemRadius = 20.0;
+
+    final realGmList = <GameMetadata>[];
+    final futureGmList = <GameMetadata>[];
+    gamesMetadataList.forEach((element) {
+      if (element.builder != null)
+        realGmList.add(element);
+      else
+        futureGmList.add(element);
+    });
+
+    var crossAxisCount = 2;
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: crossAxisCount,
+      itemCount: gamesMetadataList.length + (futureGmList.isNotEmpty ? 1 : 0),
+      staggeredTileBuilder: (int index) {
+        final GameMetadata gm = (index != realGmList.length)
+            ? ((index >= realGmList.length)
+                ? futureGmList[index - 1 - realGmList.length]
+                : realGmList[index])
+            : null;
+
+        return StaggeredTile.count(gm != null ? gm.span : crossAxisCount,
+            gm != null ? gm.ratio : 0.33);
+      },
+      itemBuilder: (BuildContext context, int index) {
+        if (futureGmList.isNotEmpty && index == realGmList.length)
+          return Container(
+            child: Center(
+                child: Text(
+              '… 敬请期待以下内容 …',
+              style: TextStyle(fontSize: 20.0),
+            )),
+            height: 28,
+          );
+        else {
+          final gm = (index >= realGmList.length)
+              ? futureGmList[index - 1 - realGmList.length]
+              : realGmList[index];
+
+          return Padding(
+            padding: const EdgeInsets.all(gameListGap),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => GameDetailsRoute(gm)));
+              },
+              child: Container(
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      gm.icon,
+                      color: Colors.white,
+                      size: 48.0,
+                    ),
+                    Container(
+                      height: 16.0,
+                    ),
+                    Text(
+                      gm.name,
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ],
+                )),
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                      )
+                    ],
+                    color: gm.color,
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          lighten(gm.color, 0.15),
+                          gm.color,
+                          darken(gm.color, 0.05)
+                        ]),
+                    borderRadius: BorderRadius.circular(gameListItemRadius)),
+              ),
+            ),
+          );
+        }
+      },
+    );
   }
 }
 
