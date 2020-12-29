@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_game_box/routes/center_route.dart';
 import 'package:provider/provider.dart';
 
 import 'models/shopping_cart.dart';
 import 'models/shopping_catalog.dart';
+import 'routes/welcome_route.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: CenterRoute(),
+        home: WelcomeRoute(),
       ),
     );
   }
