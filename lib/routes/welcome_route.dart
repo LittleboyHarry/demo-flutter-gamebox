@@ -1,6 +1,5 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-
-import 'center_route.dart';
 
 class WelcomeRoute extends StatelessWidget {
   const WelcomeRoute({
@@ -11,11 +10,7 @@ class WelcomeRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-          onTap: () => Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                  transitionDuration: Duration(seconds: 2),
-                  pageBuilder: (_, __, ___) => CenterRoute())),
+          onTap: () => Navigator.pop(context),
           child: Container(
               decoration: BoxDecoration(color: Colors.redAccent),
               child: Column(children: [
@@ -29,19 +24,67 @@ class WelcomeRoute extends StatelessWidget {
                 Container(
                   height: 64,
                 ),
-                Center(
-                  child: Container(
-                    width: 256,
-                    height: 256,
-                    decoration: BoxDecoration(color: Colors.orange),
-                  ),
-                ),
+                Container(
+                    height: 300,
+                    child: Stack(
+                      children: [
+                        LightBubbleWidget(),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: FlareActor("assets/flares/chest.flr",
+                              animation: 'box'),
+                        ),
+                      ],
+                    )),
                 Expanded(
                     child: Center(
                         child: Text('… 点击空白处开始 …',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 24))))
+                            style: TextStyle(
+                                color: Colors.white.withAlpha(192),
+                                fontSize: 18))))
               ]))),
+    );
+  }
+}
+
+class LightBubbleWidget extends StatefulWidget {
+  @override
+  _LightBubbleWidgetState createState() => _LightBubbleWidgetState();
+}
+
+class _LightBubbleWidgetState extends State<LightBubbleWidget>
+    with SingleTickerProviderStateMixin {
+  Animation<double> _animation;
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1))
+          ..repeat(reverse: true);
+    _animation =
+    Tween<double>(begin: 0.3, end: 1.0).animate(_animationController)
+          ..addListener(() {
+            setState(() {});
+          });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(colors: [
+          Colors.white.withAlpha((255 * _animation.value).round()),
+          Colors.white.withAlpha(0)
+        ]),
+      ),
     );
   }
 }
