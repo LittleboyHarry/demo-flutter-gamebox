@@ -2,36 +2,38 @@ import 'package:flutter/material.dart';
 
 import 'game_widgets/dice.dart';
 
-var gamesMetadataList = <GameMetadata>[
+final gamesMetadataList = <GameMetadata>[
   GameMetadata(
       name: "摇骰子",
-      desc: "一次摇两个",
+      desc: "单击屏幕开始摇骰子",
       color: Colors.pink,
-      icon: Icons.drag_indicator,
+      icon: Icons.casino,
       builder: (_) => DicesGameWidget()),
   GameMetadata(
-      name: "B", desc: "fewfe", color: Colors.deepPurple, icon: Icons.face),
+      name: "真心话大冒险",
+      desc: "随机抽取真心话或大冒险惩罚",
+      color: Colors.deepPurple,
+      icon: Icons.face),
   GameMetadata(
-      name: "C", desc: "sdccdsc", color: Colors.green, icon: Icons.gamepad),
+      name: "听歌识曲",
+      desc: "请朋友来唱唱歌吧",
+      color: Colors.green,
+      icon: Icons.hearing),
   GameMetadata(
-      name: "D", desc: "fdsaf", color: Colors.orange, icon: Icons.account_box),
+      name: "你画我猜",
+      desc: "查看完题目后隐藏，在绘画板上创作，让朋友猜猜你在画什么",
+      color: Colors.orange,
+      icon: Icons.palette),
   GameMetadata(
-      name: "E",
-      desc: "cxv",
+      name: "猜拳",
+      desc: "双方点击按钮随机出拳",
       color: Colors.lightBlue,
       icon: Icons.cake_outlined),
   GameMetadata(
-      name: "F",
-      desc: "fewfew",
+      name: "转动指针",
+      desc: "指针旋转随机指向一个幸运方向",
       color: Colors.yellow,
-      icon: Icons.radio_button_checked),
-  GameMetadata(
-      name: "G",
-      desc: "fewfew",
-      color: Colors.amber,
-      icon: Icons.wallet_giftcard),
-  GameMetadata(
-      name: "H", desc: "fewfew", color: Colors.purple, icon: Icons.pages)
+      icon: Icons.radio_button_checked)
 ];
 
 class GameMetadata {
