@@ -43,10 +43,22 @@ class GameDetailsRoute extends StatelessWidget {
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("开始游戏"),
-                    ))
+                    child: gm.builder != null
+                        ? ElevatedButton(
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Scaffold(
+                                        appBar: AppBar(
+                                          title: Text(gm.name),
+                                        ),
+                                        body: gm.builder(context)))),
+                            child: Text("开始游戏"),
+                          )
+                        : ElevatedButton(
+                            onPressed: null,
+                            child: Text("敬请期待"),
+                          ))
               ],
             )));
   }

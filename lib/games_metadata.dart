@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'game_widgets/dice.dart';
+
 var gamesMetadataList = <GameMetadata>[
   GameMetadata(
-      name: "A",
-      desc: "dsfjoewjfoewf",
+      name: "摇骰子",
+      desc: "一次摇两个",
       color: Colors.pink,
-      icon: Icons.add_alarm),
+      icon: Icons.drag_indicator,
+      builder: (_) => DicesGameWidget()),
   GameMetadata(
       name: "B", desc: "fewfe", color: Colors.deepPurple, icon: Icons.face),
   GameMetadata(
@@ -21,7 +24,14 @@ var gamesMetadataList = <GameMetadata>[
       name: "F",
       desc: "fewfew",
       color: Colors.yellow,
-      icon: Icons.radio_button_checked)
+      icon: Icons.radio_button_checked),
+  GameMetadata(
+      name: "G",
+      desc: "fewfew",
+      color: Colors.amber,
+      icon: Icons.wallet_giftcard),
+  GameMetadata(
+      name: "H", desc: "fewfew", color: Colors.purple, icon: Icons.pages)
 ];
 
 class GameMetadata {
@@ -30,10 +40,13 @@ class GameMetadata {
   final MaterialColor color;
   final IconData icon;
 
-  GameMetadata({
-    @required this.name,
-    @required this.desc,
-    @required this.color,
-    @required this.icon,
-  });
+  //final WidgetBuilder image;
+  final WidgetBuilder builder;
+
+  GameMetadata(
+      {@required this.name,
+      @required this.desc,
+      @required this.color,
+      @required this.icon,
+      this.builder});
 }

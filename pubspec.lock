@@ -102,6 +102,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.3.2+3"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -163,6 +170,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0-nullsafety.3"
+  zflutter:
+    dependency: "direct main"
+    description:
+      name: zflutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.1+2"
 sdks:
   dart: ">=2.10.0-110 <2.11.0"
   flutter: ">=1.16.0"

@@ -20,64 +20,65 @@ class _CenterRouteState extends State<CenterRoute> {
 
   @override
   Widget build(BuildContext context) {
+    const gameListGap = 10.0;
+    const gameListItemRadius = 20.0;
+
     final _widgetOptions = <Widget>[
       SafeArea(
         child: GridView.count(
           crossAxisCount: 2,
-          childAspectRatio: 2 / 3,
-          padding: EdgeInsets.all(8.0),
-          children: gamesMetadataList
-              .map((gm) => Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => GameDetailsRoute(gm)));
-                      },
-                      child: Container(
-                        child: Center(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              gm.icon,
-                              color: Colors.white,
-                              size: 64.0,
-                            ),
-                            Container(
-                              height: 20,
-                            ),
-                            Text(
-                              gm.name,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                          ],
-                        )),
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                              )
-                            ],
-                            color: gm.color,
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  lighten(gm.color, 0.15),
-                                  gm.color,
-                                  darken(gm.color, 0.05)
-                                ]),
-                            borderRadius: BorderRadius.circular(26.0)),
-                      ),
-                    ),
-                  ))
-              .toList(),
+          childAspectRatio: 1,
+          padding: EdgeInsets.all(gameListGap),
+          children: gamesMetadataList.map((gm) {
+            return Padding(
+              padding: const EdgeInsets.all(gameListGap),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => GameDetailsRoute(gm)));
+                },
+                child: Container(
+                  child: Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            gm.icon,
+                            color: Colors.white,
+                            size: 64.0,
+                          ),
+                          Container(
+                            height: 20,
+                          ),
+                          Text(
+                            gm.name,
+                            style:
+                            TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ],
+                      )),
+                  decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                        )
+                      ],
+                      color: gm.color,
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            lighten(gm.color, 0.15),
+                            gm.color,
+                            darken(gm.color, 0.05)
+                          ]),
+                      borderRadius: BorderRadius.circular(gameListItemRadius)),
+                ),
+              ),
+            );
+          }).toList(),
         ),
       ),
       ExplorerWidget(),
