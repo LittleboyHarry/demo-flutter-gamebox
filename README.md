@@ -1,16 +1,19 @@
-# flutter_game_box
+# 游戏百宝箱
 
-游戏百宝箱
+## 个人收获
 
-## Getting Started
+Android:
 
-This project is a starting point for a Flutter application.
+- Activity 基本流程
+- Gradle 项目结构
+- Kotlin 编程
+- 安卓模拟器调式方法
 
-A few resources to get you started if this is your first Flutter project:
+Flutter
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Dart 编程
+- Flutter SDK 调试技巧
+- 元素尺寸与布局
+- Context 状态管理
+- 异步编程
+- pubspec.yml 安装使用第三方库
